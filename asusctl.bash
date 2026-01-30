@@ -1,6 +1,6 @@
 _get_cmds() {
 #    asusctl $@ --help | awk '/^  [a-z]/ {print $1}'
-    asusctl "$@" --help | awk '
+    asusctl "$@" --help 2>/dev/null | awk '
         /^Commands?:/ {printing=1; next}
         /^[^[:space:]].*:/ {printing=0} 
         printing && /^[[:space:]]*[[:alnum:]_-]+/ {gsub(/^[ \t]+/, "", $1); print $1}
@@ -8,7 +8,7 @@ _get_cmds() {
 }
 _get_opts() {
 #    asusctl $@ --help | awk '/^  --/ {print $1}'
-    asusctl "$@" --help | awk '
+    asusctl "$@" --help 2>/dev/null | awk '
         /^Options?:/ {printing=1; next}
         /^[^[:space:]].*:/ {printing=0}
         printing && /^[[:space:]]*[[:alnum:]_-]+/ {
