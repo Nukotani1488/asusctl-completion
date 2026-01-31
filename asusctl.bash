@@ -23,10 +23,12 @@ _asusctl() {
     compopt +o default
     local args
     args=("${COMP_WORDS[@]:1:$COMP_CWORD-1}")
+    cur="${COMP_WORDS[COMP_CWORD]}"
     COMPREPLY=()
     opts='$(_get_opts ${args[@]})'
     cmds='$(_get_cmds ${args[@]})'
     COMPREPLY=( $(compgen -W "${cmds} ${opts}" -- ${cur}) )
+    return 0
 }
 
 complete -F _asusctl asusctl
