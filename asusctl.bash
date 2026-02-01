@@ -24,9 +24,14 @@ _asusctl() {
     local args
     args=("${COMP_WORDS[@]:1:$COMP_CWORD-1}")
     cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    if [[ "${prev}" == --help ]] ; then
+        return 0
+    fi
     COMPREPLY=()
     opts='$(_get_opts ${args[@]})'
     cmds='$(_get_cmds ${args[@]})'
+
     COMPREPLY=( $(compgen -W "${cmds} ${opts}" -- ${cur}) )
     return 0
 }
